@@ -1,0 +1,53 @@
+<template lang='html'>
+  <div class='aboutPage'>
+    
+    <div class="detail-menu-bar">
+      <span>
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-calendar"></use>
+        </svg>
+        <svg class="icon" aria-hidden="true">
+          <use xlink:href="#icon-priority"></use>
+        </svg>
+      </span>
+    </div>
+    <div>
+      <div class="detail-header" v-text='task.name'></div>
+      <div class="detail-container" v-text='task.detail'></div>
+    </div>
+  </div>
+
+</template>
+<script>
+
+  export default {
+    name: 'detailPage',
+    data() {
+      return {
+        task: {}
+      }
+    },
+    components: {
+      
+    }
+  }
+</script>
+<style lang='stylus'>
+
+  .detail-menu-bar {
+    padding: 12px 14px 12px 20px;
+
+  }
+
+  .detail-header {
+    padding: 16px 14px 12px 20px;
+    font-size: 16px;
+    font-weight: 700;
+  }
+
+  .detail-container {
+    padding: 0 20px;
+    font-size: 14px;
+  }
+
+</style>   
