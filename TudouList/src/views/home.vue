@@ -35,8 +35,8 @@
                       <use xlink:href="#icon-checkboxmarkedcircleoutline"></use>
                     </svg>
                   </span>
-                  <span v-else>
-                    <svg class="icon" aria-hidden="true">
+                  <span v-else >
+                    <svg class="icon" aria-hidden="true" v-on:click="closeTask(task.id)">
                       <use xlink:href="#icon-checkboxblankcircleoutline"></use>
                     </svg>
                   </span>
@@ -99,6 +99,10 @@
         this.$refs.detailPanel.task = selectedTask;
 
         console.log(taskId);
+      },
+
+      closeTask: function(taskId) {
+        this.$store.dispatch('closeTask',taskId);
       }
       
     }

@@ -62,11 +62,27 @@ const state = {
 const mutations = {
 
     addTask (state, task) {
-        state.todoListData[0].tasks.push(task);
+        state.todoListData[1].tasks.push(task);
     },
 
     deleteTask (state, task) {
 
+    },
+
+    closeTask (state, taskId) {
+      for(let list of state.todoListData)
+        {
+          for(let i=0; i<list.tasks.length; i++)
+          {
+            let task = list.tasks[i];
+            if(task.id === taskId)
+            {
+              task.isCompleted = true;
+              list.tasks.splice(i, 1);
+              state.todoListData[2].tasks.unshift(task);
+            }
+          }
+        }
     }
 
     
@@ -81,6 +97,10 @@ const actions = {
     
     deleteTask ({commit}, task) {
         commit('deleteTask', task);
+    },
+
+    closeTask ({commit}, taskId) {
+      commit('closeTask', taskId);
     }
 
 };
