@@ -5,54 +5,29 @@
 
       <div id="menu-li">
         <ul>
-          <li class="menu-item">
-            <router-link to="/">
+          <li class="menu-item" v-for="view in views">
+            <router-link :to="{path: `/view/${view.path}`}"> 
               <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-quanbu"></use>
+                  <use v-bind:xlink:href="view.icon"></use>
               </svg>
-              <span class="menu-label">全部</span>
-              <span class="task-count">1</span>
+              <span class="menu-label" v-text="view.name"></span>
+              <span class="task-count" v-text="view.taskCount"></span>
             </router-link>
           </li>
         </ul>
 
         <ul>
-          <li class="menu-item">
-            <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-today"></use>
-            </svg>
-            <span class="menu-label">Today</span>
-            <span class="task-count">7</span>
-          </li>
-          <li class="menu-item">
-            <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-queueplaynext"></use>
-            </svg>
-            <span class="menu-label">Tomorrow</span>
-            <span class="task-count">6</span>
-          </li>
-          <li class="menu-item">
-            <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-weeklyview"></use>
-            </svg>
-            <span class="menu-label">Recent 7 days</span>
-            <span class="task-count">3</span>
-          </li>
-          <li class="menu-item">
-            <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-calendar"></use>
-            </svg>
-            <span class="menu-label">Calendar</span>
-            <span class="task-count">3</span>
-          </li>
-          <li class="menu-item">
-            <svg class="icon" aria-hidden="true">
-                <use xlink:href="#icon-box"></use>
-            </svg>
-            <span class="menu-label">Uncategory Task</span>
-            <span class="task-count">3</span>
+          <li class="menu-item" v-for="list in customizedList">
+            <router-link :to="{path: `/customized-list/${list.path}`}"> 
+              <svg class="icon" aria-hidden="true">
+                  <use v-bind:xlink:href="list.icon"></use>
+              </svg>
+              <span class="menu-label" v-text="list.name"></span>
+              <span class="task-count" v-text="list.taskCount"></span>
+            </router-link>
           </li>
         </ul>
+
       </div>
     </div>
 
@@ -71,7 +46,8 @@ export default {
   name: 'app',
   data() {
     return {
-      
+      views: this.$store.state.viewList.data,
+      customizedList: this.$store.state.customizedList.data
     }
   },
   components: {

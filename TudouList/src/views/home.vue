@@ -2,7 +2,7 @@
   <div>
 
     <div class="task-list">
-      <h1 style="padding-left:20px;margin-top:10px;font-weight:400;font-size:22px;">所有All</h1>
+      <h1 style="padding-left:20px;margin-top:10px;font-weight:400;font-size:22px;" v-text="title"></h1>
 
       <div class="task-input-panel">
         <input type="text" class="input-task"
@@ -73,10 +73,17 @@
     name: 'homeP',
     data() {
       return {
+        title: this.$store.getters.getViewTitle(this.$route.params.id),
         newTaskText: "",
         lists: this.$store.state.todoList.todoListData
       }
     },
+    watch: {
+    '$route' (to, from) {
+      this.title = this.$store.getters.getViewTitle(to.params.id);
+
+    }
+  },
     components: {
       'detail-panel': DetailPanel
     },
