@@ -3,9 +3,12 @@
     
     <div class="detail-menu-bar">
       <span>
-        <svg class="icon" aria-hidden="true">
-          <use xlink:href="#icon-calendar"></use>
-        </svg>
+        <el-date-picker
+          v-model="value1"
+          type="date"
+          size="small"
+          placeholder="选择日期">
+        </el-date-picker>
         <svg class="icon" aria-hidden="true">
           <use xlink:href="#icon-priority"></use>
         </svg>
@@ -24,7 +27,8 @@
     name: 'detailPage',
     data() {
       return {
-        task: {}
+        task: {},
+        value1: ''
       }
     },
     components: {
