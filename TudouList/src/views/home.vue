@@ -10,10 +10,10 @@
         v-model="newTaskText"
         v-on:keyup.enter="addNewTask" />
         <span class="icon-button">
-          <svg class="icon" aria-hidden="true">
+          <svg class="icon-listpage" aria-hidden="true">
             <use xlink:href="#icon-calendar"></use>
           </svg>
-          <svg class="icon" aria-hidden="true">
+          <svg class="icon-listpage" aria-hidden="true">
             <use xlink:href="#icon-priority"></use>
           </svg>
         </span>
@@ -21,36 +21,39 @@
 
       <div class="list-panel">
         <section v-for="list in lists">
-          <div class="list-header">
-            <svg class="icon" aria-hidden="true">
-              <use xlink:href="#icon-msnui-triangle-down"></use>
+          <div class="list-header" v-on:click="toggleDisplayList(list)">
+            <svg class="icon icon-small" aria-hidden="true">
+              <use v-bind:xlink:href="list.iconTriangle"></use>
             </svg>
             <span class="list-title" v-text="list.name"></span>
           </div>
-          <ul>
-            <li v-for="task in list.tasks" class="task-panel selected">
-                <span v-bind:class="{complete: task.isCompleted}">
-                  <span v-if="task.isCompleted">
-                    <svg class="icon" aria-hidden="true">
-                      <use xlink:href="#icon-checkboxmarkedcircleoutline"></use>
-                    </svg>
-                  </span>
-                  <span v-else >
-                    <svg class="icon" aria-hidden="true" v-on:click="closeTask(task.id)">
-                      <use xlink:href="#icon-checkboxblankcircleoutline"></use>
-                    </svg>
-                  </span>
+          <ul v-show="list.isShow">
+            <li v-for="task in list.tasks" class="task-panel">
+              <div class="list-item" v-bind:class="{selected: task.isSelected}">
+                  <span v-bind:class="{complete: task.isCompleted}" >
+                    <span v-if="task.isCompleted">
+                      <svg class="icon-listpage" aria-hidden="true">
+                        <use xlink:href="#icon-checkboxmarkedcircleoutline"></use>
+                      </svg>
+                    </span>
+                    <span v-else >
+                      <svg class="icon-listpage" aria-hidden="true" v-on:click="closeTask(task.id)">
+                        <use xlink:href="#icon-checkboxblankcircleoutline"></use>
+                      </svg>
+                    </span>
 
-                  <span class="task-name" v-text="task.name" v-on:click="getTaskDetails(task.id)"></span>
-                  <span class="task-context-menu">
-                    <svg class="icon" aria-hidden="true">
-                      <use xlink:href="#icon-delete"></use>
-                    </svg>
-                    <svg class="icon" aria-hidden="true">
-                      <use xlink:href="#icon-more"></use>
-                    </svg>
-                  </span>
-              </span>
+                    <span class="task-name" v-text="task.name" v-on:click="getTaskDetails(task)"></span>
+                    <span class="task-context-menu">
+                      <svg class="icon-listpage" aria-hidden="true">
+                        <use xlink:href="#icon-delete"></use>
+                      </svg>
+                      <svg class="icon-listpage" aria-hidden="true">
+                        <use xlink:href="#icon-more"></use>
+                      </svg>
+                    </span>
+                </span>
+              </div>
+              <div class="task-spliter" />
             </li>
           </ul>
         </section>
@@ -99,18 +102,26 @@
         this.newTaskText = "";
       },
 
-      getTaskDetails: function(taskId) {
+      toggleDisplayList: function(list) {
+        list.isShow = !list.isShow;
+        list.iconTriangle = list.isShow?"#icon-msnui-triangle-down":'#icon-msnui-triangle-right';
+      },
 
-        let selectedTask = this.$store.getters.getTaskDetail(taskId);
+      getTaskDetails: function(task) {
+        task.isSelected = true;
+
+        let selectedTask = this.$store.getters.getTaskDetail(task.id);
 
         this.$refs.detailPanel.task = selectedTask;
 
-        console.log(taskId);
+        console.log(task.id);
       },
 
       closeTask: function(taskId) {
         this.$store.dispatch('closeTask',taskId);
       }
+
+
       
     }
   }
@@ -118,11 +129,17 @@
 
 <style lang="stylus">
 
-  .icon {
-    width: 24px; height: 24px;
+  .icon-listpage {
+    width: 20px; 
+    height: 20px;
     vertical-align: middle;
-    fill: currentColor;
+    fill: grey;
     overflow: hidden;
+  }
+
+  .icon-small {
+    width: 13px; 
+    height: 13px;
   }
 
   .task-input-panel {
@@ -143,8 +160,14 @@
   }
 
   .list-header {
-    margin: 5px 0 10px 0;
+    margin: 5px 0 10px 5px;
     cursor: pointer;
+  }
+
+  .task-spliter {
+    background-color: rgba(0,0,0,.08);
+    height: 1px;
+    margin-left: 24px;
   }
 
   .list-title {
@@ -153,24 +176,29 @@
 
   .task-name {
     font-size: 14px;
+    color: rgba(0,0,0,.85);
   }
 
 
   .task-panel {
-    padding-left: 30px;
-    height: 35px;
+    height: 36px;
     cursor: pointer;
+    line-height: 36px;
   }
 
-  .task-panel .selected {
-    background-color: #53beb8
-
+  .list-item {
+    padding-left: 17px;
+    padding-right: 15px;
   }
+
+  .selected {
+    background-color: #f3f3f3
+  }
+
 
   .task-context-menu {
     position: relative;
     float: right;
-    padding-right: 25px;
   }
 
   .complete {

@@ -6,7 +6,7 @@
         <el-date-picker
           v-model="value1"
           type="date"
-          size="small"
+          size="mini"
           placeholder="选择日期">
         </el-date-picker>
         <svg class="icon" aria-hidden="true">
@@ -16,7 +16,15 @@
     </div>
     <div>
       <div class="detail-header" v-text='task.name'></div>
-      <div class="detail-container" v-text='task.detail'></div>
+      <div class="detail-container">
+        <el-input
+          type="textarea"
+          :autosize="{ minRows: 10, maxRows: 20}"
+          placeholder="请输入任务详细信息"
+          v-model="task.detail">
+        </el-input>
+      </div>
+
     </div>
   </div>
 
@@ -50,7 +58,7 @@
   }
 
   .detail-container {
-    padding: 0 20px;
+    padding: 0 20px 10px 20px;
     font-size: 14px;
   }
 

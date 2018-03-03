@@ -4,17 +4,21 @@ const state = {
         {
           id: 1000,
           name: "Inbox",
+          isShow: true,
+          iconTriangle: "#icon-msnui-triangle-down",
           tasks: [
             {
               id: 2000,
               name: "新Counter集成",
               detail: "Counter的详细",
+              isSelected: false,
               isCompleted: false
             },
             {
               id: 2001,
               name: "SplitBill MDM",
               detail: "MDM的详细",
+              isSelected: false,
               isCompleted: false
             }
           ]
@@ -22,17 +26,21 @@ const state = {
         {
           id: 1001,
           name: "HKT",
+          isShow: true,
+          iconTriangle: "#icon-msnui-triangle-down",
           tasks: [
             {
               id: 3000,
               name: "月底买飞机票",
               detail: "asdfbbasdf",
+              isSelected: false,
               isCompleted: false
             },
             {
               id: 3001,
               name: "HTML5语义化",
               detail: "zxcvzxcvzxcv",
+              isSelected: false,
               isCompleted: false
             }
           ]
@@ -40,17 +48,21 @@ const state = {
         {
           id: 1003,
           name: "Completed",
+          isShow: true,
+          iconTriangle: "#icon-msnui-triangle-down",
           tasks: [
             {
               id: 3000,
               name: "已完成的任务测试",
               detail: "阿斯顿；福利卡上的纠纷；lkasjdf",
+              isSelected: false,
               isCompleted: true
             },
             {
               id: 3001,
               name: "HTML5语义化",
               detail: "zxcvzxcvzxcv",
+              isSelected: false,
               isCompleted: true
             }
           ]

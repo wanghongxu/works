@@ -79,10 +79,10 @@ export default {
   }
 
   .left-panel {
-    //display: none;
     position:absolute;
     top: 0;
-    width: 300px;
+    left: 0;
+    width: 260px;
     height: 100%;
     background-color: #5069c4;
   }
@@ -110,7 +110,7 @@ export default {
   .task-list {
     position: absolute;
     top: 0;
-    left: 300px;
+    left: 260px;
     right: 36%;
     height: 100%;
     background-color: white;
