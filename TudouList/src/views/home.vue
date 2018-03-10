@@ -10,12 +10,42 @@
         v-model="newTaskText"
         v-on:keyup.enter="addNewTask" />
         <span class="icon-button">
-          <svg class="icon-listpage" aria-hidden="true">
-            <use xlink:href="#icon-calendar"></use>
-          </svg>
-          <svg class="icon-listpage" aria-hidden="true">
-            <use xlink:href="#icon-priority"></use>
-          </svg>
+
+          <el-date-picker
+            ref="newTaskDate"
+            v-model="value1"
+            type="date"
+            size="mini"
+            clearable="true"
+            placeholder="选择日期"
+            style="width:133px"
+            >
+          </el-date-picker>
+
+          <el-dropdown @command="handleCommand">
+            <svg class="icon-listpage" aria-hidden="true">
+              <use xlink:href="#icon-priority"></use>
+            </svg>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="a" style="color:#ff3180">高</el-dropdown-item>
+              <el-dropdown-item command="b" style="color:#ffc817">中</el-dropdown-item>
+              <el-dropdown-item command="c" style="color:#617fde">低</el-dropdown-item>
+              <el-dropdown-item command="e" style="color:#c4c4c4">无优先级</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+
+          <el-dropdown @command="handleCommand">
+            <svg class="icon-listpage" aria-hidden="true">
+              <use xlink:href="#icon-box"></use>
+            </svg>
+            <el-dropdown-menu slot="dropdown">
+              <el-dropdown-item command="a">Uncategory Task</el-dropdown-item>
+              <el-dropdown-item command="b" divided>HKT</el-dropdown-item>
+              <el-dropdown-item command="c">前端学习</el-dropdown-item>
+              <el-dropdown-item command="e">Mac</el-dropdown-item>
+            </el-dropdown-menu>
+          </el-dropdown>
+
         </span>
       </div>
 
@@ -29,7 +59,11 @@
           </div>
           <ul v-show="list.isShow">
             <li v-for="task in list.tasks" class="task-panel">
-              <div class="list-item" v-bind:class="{selected: task.isSelected}">
+              <div class="list-item" 
+                  v-bind:class="{selected: task.id == selectedTaskId, hovered: task.id == hoveredTaskId}" 
+                  v-on:click="getTaskDetails(task)"
+                  v-on:mouseenter="setHoveredTask(task)"
+                  >
                   <span v-bind:class="{complete: task.isCompleted}" >
                     <span v-if="task.isCompleted">
                       <svg class="icon-listpage" aria-hidden="true">
@@ -37,14 +71,14 @@
                       </svg>
                     </span>
                     <span v-else >
-                      <svg class="icon-listpage" aria-hidden="true" v-on:click="closeTask(task.id)">
+                      <svg class="icon-listpage" aria-hidden="true" v-on:click="closeTask(task)">
                         <use xlink:href="#icon-checkboxblankcircleoutline"></use>
                       </svg>
                     </span>
 
-                    <span class="task-name" v-text="task.name" v-on:click="getTaskDetails(task)"></span>
+                    <span class="task-name" v-text="task.name" ></span>
                     <span class="task-context-menu">
-                      <svg class="icon-listpage" aria-hidden="true">
+                      <svg class="icon-listpage" aria-hidden="true" @click="deleteTask(task)">
                         <use xlink:href="#icon-delete"></use>
                       </svg>
                       <svg class="icon-listpage" aria-hidden="true">
@@ -52,8 +86,9 @@
                       </svg>
                     </span>
                 </span>
+                <div class="task-spliter" />
               </div>
-              <div class="task-spliter" />
+              
             </li>
           </ul>
         </section>
@@ -78,7 +113,10 @@
       return {
         title: this.$store.getters.getViewTitle(this.$route.params.id),
         newTaskText: "",
-        lists: this.$store.state.todoList.todoListData
+        lists: this.$store.state.todoList.todoListData,
+        selectedTaskId: -1,
+        hoveredTaskId: -1,
+        value1: ""
       }
     },
     watch: {
@@ -102,13 +140,21 @@
         this.newTaskText = "";
       },
 
+      deleteTask: function(task) {
+        this.$message({
+          message: '任务【' + task.name + '】已删除',
+          type: 'success'
+        });
+      },
+
       toggleDisplayList: function(list) {
         list.isShow = !list.isShow;
         list.iconTriangle = list.isShow?"#icon-msnui-triangle-down":'#icon-msnui-triangle-right';
       },
 
       getTaskDetails: function(task) {
-        task.isSelected = true;
+
+        this.selectedTaskId = task.id;
 
         let selectedTask = this.$store.getters.getTaskDetail(task.id);
 
@@ -117,12 +163,25 @@
         console.log(task.id);
       },
 
-      closeTask: function(taskId) {
-        this.$store.dispatch('closeTask',taskId);
+      closeTask: function(task) {
+        this.$store.dispatch('closeTask',task.id);
+        this.$message({
+          message: '任务【' + task.name + '】已完成',
+          type: 'success'
+        });
+      },
+
+      setHoveredTask: function(task) {
+        this.hoveredTaskId = task.id;
+      },
+
+      handleCommand: function(command) {
+        this.$message('click on item ' + command);
+      },
+      pickDate: function() {
+        console.log(this.$refs.newTaskDate)
+        this.$refs.newTaskDate.focus();
       }
-
-
-      
     }
   }
 </script>
@@ -191,6 +250,10 @@
     padding-right: 15px;
   }
 
+  .hovered {
+    background-color: #f9f9f9
+  }
+
   .selected {
     background-color: #f3f3f3
   }
@@ -204,6 +267,5 @@
   .complete {
     color: #c5c5c5;
   }
-
 
 </style>
