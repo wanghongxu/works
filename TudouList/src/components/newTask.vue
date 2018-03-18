@@ -5,7 +5,7 @@
         placeholder="Write task to inbox by Enter"
         v-model="newTaskText"
         v-on:keyup.enter="newTask" />
-        
+
     <span class="icon-button">
 
         <el-date-picker
@@ -19,9 +19,11 @@
         </el-date-picker>
 
         <el-dropdown @command="handlePriority" trigger="click">
-            <svg class="icon-listpage" aria-hidden="true">
-                <use xlink:href="#icon-priority"></use>
-            </svg>
+            <span>
+                <svg class="icon-listpage" aria-hidden="true">
+                    <use xlink:href="#icon-priority"></use>
+                </svg>
+            </span>
             <el-dropdown-menu slot="dropdown" trigger="click">
                 <el-dropdown-item command="H" style="color:#ff3180" v-bind:class="{selected: this.priority == 'H'}">高</el-dropdown-item>
                 <el-dropdown-item command="M" style="color:#ffc817" v-bind:class="{selected: this.priority == 'M'}">中</el-dropdown-item>
@@ -31,9 +33,11 @@
         </el-dropdown>
 
         <el-dropdown >
-            <svg class="icon-listpage" aria-hidden="true">
-                <use xlink:href="#icon-box"></use>
-            </svg>
+            <span>
+                <svg class="icon-listpage" aria-hidden="true">
+                    <use xlink:href="#icon-box"></use>
+                </svg>
+            </span>
             <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="a">Uncategory Task</el-dropdown-item>
                 <el-dropdown-item command="b" divided>HKT</el-dropdown-item>
@@ -91,7 +95,7 @@
   }
 
   .input-task {
-    width: 270px;
+    width: 370px;
     height: 25px;
     border-style: none;
   }

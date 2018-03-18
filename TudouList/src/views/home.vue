@@ -33,7 +33,7 @@
                       </svg>
                     </span>
 
-                    <span class="task-name" v-text="task.name" ></span>
+                    <span class="task-name" v-text="task.name" contenteditable="true"></span>
                     <span class="task-context-menu">
                       <svg class="icon-listpage" aria-hidden="true" @click="deleteTask(task)">
                         <use xlink:href="#icon-delete"></use>
