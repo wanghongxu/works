@@ -4,50 +4,7 @@
     <div class="task-list">
       <h1 style="padding-left:20px;margin-top:10px;font-weight:400;font-size:22px;" v-text="title"></h1>
 
-      <div class="task-input-panel">
-        <input type="text" class="input-task"
-        placeholder="Write task to inbox by Enter"
-        v-model="newTaskText"
-        v-on:keyup.enter="addNewTask" />
-        <span class="icon-button">
-
-          <el-date-picker
-            ref="newTaskDate"
-            v-model="value1"
-            type="date"
-            size="mini"
-            clearable="true"
-            placeholder="选择日期"
-            style="width:133px"
-            >
-          </el-date-picker>
-
-          <el-dropdown @command="handleCommand">
-            <svg class="icon-listpage" aria-hidden="true">
-              <use xlink:href="#icon-priority"></use>
-            </svg>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="a" style="color:#ff3180">高</el-dropdown-item>
-              <el-dropdown-item command="b" style="color:#ffc817">中</el-dropdown-item>
-              <el-dropdown-item command="c" style="color:#617fde">低</el-dropdown-item>
-              <el-dropdown-item command="e" style="color:#c4c4c4">无优先级</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-
-          <el-dropdown @command="handleCommand">
-            <svg class="icon-listpage" aria-hidden="true">
-              <use xlink:href="#icon-box"></use>
-            </svg>
-            <el-dropdown-menu slot="dropdown">
-              <el-dropdown-item command="a">Uncategory Task</el-dropdown-item>
-              <el-dropdown-item command="b" divided>HKT</el-dropdown-item>
-              <el-dropdown-item command="c">前端学习</el-dropdown-item>
-              <el-dropdown-item command="e">Mac</el-dropdown-item>
-            </el-dropdown-menu>
-          </el-dropdown>
-
-        </span>
-      </div>
+      <new-task-panel v-on:newtask="addNewTask"></new-task-panel>
 
       <div class="list-panel">
         <section v-for="list in lists">
@@ -106,6 +63,7 @@
 <script>
  
   import DetailPanel from './detail.vue';
+  import newTaskPanel from '../components/newTask.vue';
 
   export default {
     name: 'homeP',
@@ -126,18 +84,16 @@
     }
   },
     components: {
-      'detail-panel': DetailPanel
+      'detail-panel': DetailPanel,
+      'new-task-panel': newTaskPanel
     },
     methods: {
-      addNewTask: function() {
-        console.log(this.newTaskText);
+      addNewTask: function(task) {
+        //console.log(this.newTaskText);
 
-        this.$store.dispatch('addTask',{
-            id: 123,
-            name: this.newTaskText
-          });
+        this.$store.dispatch('addTask',task);
 
-        this.newTaskText = "";
+        //this.newTaskText = "";
       },
 
       deleteTask: function(task) {
@@ -177,10 +133,6 @@
 
       handleCommand: function(command) {
         this.$message('click on item ' + command);
-      },
-      pickDate: function() {
-        console.log(this.$refs.newTaskDate)
-        this.$refs.newTaskDate.focus();
       }
     }
   }
@@ -199,18 +151,6 @@
   .icon-small {
     width: 13px; 
     height: 13px;
-  }
-
-  .task-input-panel {
-    padding: 5px 10px;
-    border: 1px solid #617fde;
-    margin: 0 15px;
-  }
-
-  .input-task {
-    width: 270px;
-    height: 25px;
-    border-style: none;
   }
 
   .icon-button {

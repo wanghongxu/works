@@ -48,13 +48,13 @@ const state = {
           iconTriangle: "#icon-msnui-triangle-down",
           tasks: [
             {
-              id: 3000,
+              id: 5000,
               name: "已完成的任务测试",
               detail: "阿斯顿；福利卡上的纠纷；lkasjdf",
               isCompleted: true
             },
             {
-              id: 3001,
+              id: 5001,
               name: "HTML5语义化",
               detail: "zxcvzxcvzxcv",
               isCompleted: true
