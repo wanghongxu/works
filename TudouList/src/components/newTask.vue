@@ -14,6 +14,7 @@
             size="mini"
             placeholder="选择日期"
             style="width:133px"
+            value-format="yyyy年MM月dd日"
             @change="focusInput"
             >
         </el-date-picker>

@@ -2,7 +2,10 @@
   <div>
 
     <div class="task-list">
-      <h1 style="padding-left:20px;margin-top:10px;font-weight:400;font-size:22px;" v-text="title"></h1>
+      <div class="top-title">
+        <h1 style="font-weight:400;font-size:22px;" v-text="title"></h1>
+      </div>
+      
 
       <new-task-panel v-on:newtask="addNewTask"></new-task-panel>
 
@@ -15,12 +18,12 @@
             <span class="list-title" v-text="list.name"></span>
           </div>
           <ul v-show="list.isShow">
-            <li v-for="task in list.tasks" class="task-panel">
+            <li v-for="task in list.tasks" class="task-line">
               <div class="list-item" 
                   v-bind:class="{selected: task.id == selectedTaskId, hovered: task.id == hoveredTaskId}" 
                   v-on:click="getTaskDetails(task)"
-                  v-on:mouseenter="setHoveredTask(task)"
-                  >
+                  v-on:mouseenter="setHoveredTask(task)" >
+                  
                   <span v-bind:class="{complete: task.isCompleted}" >
                     <span v-if="task.isCompleted">
                       <svg class="icon-listpage" aria-hidden="true">
@@ -31,18 +34,37 @@
                       <svg class="icon-listpage" aria-hidden="true" v-on:click="closeTask(task)">
                         <use xlink:href="#icon-checkboxblankcircleoutline"></use>
                       </svg>
-                    </span>
+                    </span> 
 
-                    <span class="task-name" v-text="task.name" contenteditable="true"></span>
-                    <span class="task-context-menu">
+                    <span class="task-name" contenteditable="true">{{task.name}}</span>
+                    <div style="float:right; position: relative; max-height: 36px;">
+                      <span class="target-date">{{task.targetDate}}</span>
+
+                      
+                    </div>
+
+                  </span>
+                  <div style="position:absolute; top: 0px; right: 9px">
+                    <el-dropdown trigger="click" style="height:26px">
+                        <span v-show="task.id == hoveredTaskId">
+                            <svg class="icon-listpage" aria-hidden="true">
+                                <use xlink:href="#icon-more"></use>
+                            </svg>
+                        </span>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item @click.native="handleMenuCommand('DELETE',task.id)">Delete</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+
+                    <!-- <span v-show="task.id == hoveredTaskId">
                       <svg class="icon-listpage" aria-hidden="true" @click="deleteTask(task)">
                         <use xlink:href="#icon-delete"></use>
                       </svg>
                       <svg class="icon-listpage" aria-hidden="true">
                         <use xlink:href="#icon-more"></use>
                       </svg>
-                    </span>
-                </span>
+                    </span> -->
+                  </div>
                 <div class="task-spliter" />
               </div>
               
@@ -131,8 +153,8 @@
         this.hoveredTaskId = task.id;
       },
 
-      handleCommand: function(command) {
-        this.$message('click on item ' + command);
+      handleMenuCommand: function(command, taskId) {
+        this.$message('click on item ' + taskId + ' ' + command);
       }
     }
   }
@@ -146,6 +168,10 @@
     vertical-align: middle;
     fill: grey;
     overflow: hidden;
+  }
+
+  .top-title {
+    padding: 12px 20px
   }
 
   .icon-small {
@@ -179,7 +205,7 @@
   }
 
 
-  .task-panel {
+  .task-line {
     height: 36px;
     cursor: pointer;
     line-height: 36px;
@@ -187,7 +213,8 @@
 
   .list-item {
     padding-left: 17px;
-    padding-right: 15px;
+    padding-right: 37px;
+    position: relative;
   }
 
   .hovered {
@@ -202,6 +229,15 @@
   .task-context-menu {
     position: relative;
     float: right;
+  }
+
+  .tip {
+    position: relative;
+    float: right;
+  }
+
+  .target-date {
+    font-size: 13px;
   }
 
   .complete {

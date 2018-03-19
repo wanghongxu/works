@@ -48,7 +48,8 @@
 
   .detail-menu-bar {
     padding: 12px 14px 12px 20px;
-
+    border-bottom: 1px solid;
+    border-color: #dedede;
   }
 
   .detail-header {

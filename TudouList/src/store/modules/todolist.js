@@ -11,12 +11,14 @@ const state = {
               id: 2000,
               name: "新Counter集成",
               detail: "Counter的详细",
+              targetDate: "3月2日 09:00",
               isCompleted: false
             },
             {
               id: 2001,
               name: "SplitBill MDM",
               detail: "MDM的详细",
+              targetDate: "3月3日 09:00",
               isCompleted: false
             }
           ]
@@ -31,12 +33,14 @@ const state = {
               id: 3000,
               name: "月底买飞机票",
               detail: "asdfbbasdf",
+              targetDate: "3月2日 09:00",
               isCompleted: false
             },
             {
               id: 3001,
               name: "HTML5语义化",
               detail: "zxcvzxcvzxcv",
+              targetDate: "3月2日 09:00",
               isCompleted: false
             }
           ]
@@ -51,12 +55,14 @@ const state = {
               id: 5000,
               name: "已完成的任务测试",
               detail: "阿斯顿；福利卡上的纠纷；lkasjdf",
+              targetDate: "3月2日 09:00",
               isCompleted: true
             },
             {
               id: 5001,
               name: "HTML5语义化",
               detail: "zxcvzxcvzxcv",
+              targetDate: "3月2日 09:00",
               isCompleted: true
             }
           ]
