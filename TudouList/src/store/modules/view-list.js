@@ -14,7 +14,7 @@ const state = {
         },
         {
             name: "Tomorrow",
-            icon: "#icon-queueplaynext",
+            icon: "#icon-icon_day",
             taskCount: 3,
             path: "tomorrow"
         },

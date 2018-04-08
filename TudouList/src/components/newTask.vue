@@ -25,7 +25,7 @@
                     <use xlink:href="#icon-priority"></use>
                 </svg>
             </span>
-            <el-dropdown-menu slot="dropdown" trigger="click">
+            <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item command="H" style="color:#ff3180" v-bind:class="{selected: this.priority == 'H'}">高</el-dropdown-item>
                 <el-dropdown-item command="M" style="color:#ffc817" v-bind:class="{selected: this.priority == 'M'}">中</el-dropdown-item>
                 <el-dropdown-item command="L" style="color:#617fde" v-bind:class="{selected: this.priority == 'L'}">低</el-dropdown-item>
@@ -33,17 +33,17 @@
             </el-dropdown-menu>
         </el-dropdown>
 
-        <el-dropdown >
+        <el-dropdown @command="handleCategory" trigger="click">
             <span>
                 <svg class="icon-listpage" aria-hidden="true">
                     <use xlink:href="#icon-box"></use>
                 </svg>
             </span>
             <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item command="a">Uncategory Task</el-dropdown-item>
-                <el-dropdown-item command="b" divided>HKT</el-dropdown-item>
-                <el-dropdown-item command="c">前端学习</el-dropdown-item>
-                <el-dropdown-item command="e">Mac</el-dropdown-item>
+                <el-dropdown-item command="Uncategory" v-bind:class="{selected: this.category == 'Uncategory'}" >Uncategory Task</el-dropdown-item>
+                <el-dropdown-item command="HKT" v-bind:class="{selected: this.category == 'HKT'}" divided>HKT</el-dropdown-item>
+                <el-dropdown-item command="FRONT" v-bind:class="{selected: this.category == 'FRONT'}" >前端学习</el-dropdown-item>
+                <el-dropdown-item command="MAC" v-bind:class="{selected: this.category == 'MAC'}" >Mac</el-dropdown-item>
             </el-dropdown-menu>
         </el-dropdown>
 
@@ -60,17 +60,19 @@
           
             newTaskText: '',
             targetDate: '',
-            priority: 'N'
+            priority: 'N',
+            category: 'Uncategory'
       }
     },
     methods: {
       newTask: function(){
 
           this.$emit('newtask', {
-              id: Date.now(),
-              name: this.newTaskText,
-              targetDate: this.targetDate,
-              priority: this.priority
+                id: Date.now(),
+                name: this.newTaskText,
+                targetDate: this.targetDate,
+                priority: this.priority,
+                category: this.category
               }
           );
           this.newTaskText = '';
@@ -79,7 +81,11 @@
       },
       handlePriority: function(val) {
           this.priority = val;
-          this.$refs.taskInput.focus();
+          this.focusInput();
+      },
+      handleCategory: function(val) {
+          this.category = val;
+          this.focusInput();
       },
       focusInput: function(){
           this.$refs.taskInput.focus();

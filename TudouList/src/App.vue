@@ -16,17 +16,36 @@
           </li>
         </ul>
 
-        <ul>
-          <li class="menu-item" v-for="list in customizedList">
-            <router-link :to="{path: `/customized-list/${list.path}`}"> 
-              <svg class="icon" aria-hidden="true">
-                  <use v-bind:xlink:href="list.icon"></use>
-              </svg>
-              <span class="menu-label" v-text="list.name"></span>
-              <span class="task-count" v-text="list.taskCount"></span>
-            </router-link>
-          </li>
-        </ul>
+        <div>
+          <el-tabs v-model="activeName" >
+            <el-tab-pane label="清单" name="tabCustomizedList">
+
+              <ul>
+                <li class="menu-item" v-for="list in customizedList">
+                  <router-link :to="{path: `/customized-list/${list.path}`}"> 
+                    <svg class="icon" aria-hidden="true">
+                        <use v-bind:xlink:href="list.icon"></use>
+                    </svg>
+                    <span class="menu-label" v-text="list.name"></span>
+                    <span class="task-count" v-text="list.taskCount"></span>
+                  </router-link>
+                </li>
+                <li class="menu-item">
+                  <svg class="icon" aria-hidden="true">
+                      <use xlink:href="#icon-jiahao"></use>
+                  </svg>
+                  <span class="menu-label">添加清单</span>
+                  
+                </li>
+              </ul>
+
+            </el-tab-pane>
+            <el-tab-pane label="标签" name="tabTab">标签</el-tab-pane>
+            <el-tab-pane label="自定义" name="tabCustomized">自定义</el-tab-pane>
+            
+          </el-tabs>
+        </div>
+
 
       </div>
     </div>
@@ -47,7 +66,8 @@ export default {
   data() {
     return {
       views: this.$store.state.viewList.data,
-      customizedList: this.$store.state.customizedList.data
+      customizedList: this.$store.state.customizedList.data,
+      activeName: 'tabCustomizedList'
     }
   },
   components: {
@@ -69,6 +89,10 @@ export default {
   #container {
     margin: 0;
     padding: 0;
+  }
+
+  .submenuLabel {
+    padding: 0 16px
   }
 
   .icon {

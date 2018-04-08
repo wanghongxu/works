@@ -34,7 +34,7 @@
                       <svg class="icon-listpage" aria-hidden="true" v-on:click="closeTask(task)">
                         <use xlink:href="#icon-checkboxblankcircleoutline"></use>
                       </svg>
-                    </span> 
+                    </span>
 
                     <span class="task-name" contenteditable="true">{{task.name}}</span>
                     <div style="float:right; position: relative; max-height: 36px;">

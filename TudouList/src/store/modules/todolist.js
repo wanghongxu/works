@@ -3,7 +3,7 @@ const state = {
     todoListData: [
         {
           id: 1000,
-          name: "Inbox",
+          name: "Uncategory",
           isShow: true,
           iconTriangle: "#icon-msnui-triangle-down",
           tasks: [
@@ -74,7 +74,13 @@ const state = {
 const mutations = {
 
     addTask (state, task) {
-        state.todoListData[1].tasks.push(task);
+      for(let list of state.todoListData)
+      {
+        if(task.category == list.name)
+        {
+          list.tasks.push(task);
+        }
+      }
     },
 
     deleteTask (state, task) {
