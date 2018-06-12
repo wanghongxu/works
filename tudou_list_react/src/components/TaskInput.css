@@ -1,0 +1,11 @@
+  .task-input-panel {
+    padding: 5px 10px;
+    border: 1px solid #617fde;
+    margin: 0 15px;
+  }
+
+  .input-task {
+    width: 370px;
+    height: 25px;
+    border-style: none;
+  }

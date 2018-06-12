@@ -1,0 +1,37 @@
+li, ol, ul {
+    list-style: none;
+    -webkit-margin-before: 0;
+    -webkit-margin-after: 0;
+    -webkit-margin-start: 0;
+    -webkit-margin-end: 0;
+    -webkit-padding-start: 0;
+  }
+
+.left-panel {
+    position:absolute;
+    top: 0;
+    left: 0;
+    width: 260px;
+    height: 100%;
+    background-color: #5069c4;
+  }
+
+  .menu-item {
+    height: 36px;
+    line-height: 36px;
+    color: white;
+    padding: 0 16px 0 12px;
+    opacity: .7;
+    cursor: pointer;
+  }
+
+  .menu-label {
+    display: inline-block;
+    font-size: 14px;
+  }
+
+  .task-count {
+    position: absolute;
+    right: 16px;
+    font-size: 12px;
+  }

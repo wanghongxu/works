@@ -1,0 +1,59 @@
+.list-header {
+    margin: 5px 0 10px 5px;
+    cursor: pointer;
+  }
+
+  .task-spliter {
+    background-color: rgba(0,0,0,.08);
+    height: 1px;
+    margin-left: 24px;
+  }
+
+  .list-title {
+    font-size: 12px;
+  }
+
+  .task-name {
+    font-size: 14px;
+    color: rgba(0,0,0,.85);
+  }
+
+
+  .task-line {
+    height: 36px;
+    cursor: pointer;
+    line-height: 36px;
+  }
+
+  .list-item {
+    padding-left: 17px;
+    padding-right: 37px;
+    position: relative;
+  }
+
+  .hovered {
+    background-color: #f9f9f9
+  }
+
+  .selected {
+    background-color: #f3f3f3
+  }
+
+
+  .task-context-menu {
+    position: relative;
+    float: right;
+  }
+
+  .tip {
+    position: relative;
+    float: right;
+  }
+
+  .target-date {
+    font-size: 13px;
+  }
+
+  .complete {
+    color: #c5c5c5;
+  }
