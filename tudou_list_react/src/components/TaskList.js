@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import Task from './Task'
 
 class TaskList extends Component {
+
     render() {
         return (
             <div className="list-panel">
@@ -9,14 +11,14 @@ class TaskList extends Component {
                         <div className="list-title">Inbox</div>
                     </div>
                     <ul>
-                        <li className="task-line">
-                            <div className="list-item">
-                                <span className="task-name" contentEditable="true" >sdasdfasdf</span>
-                                <div style={{float:'right', position: 'relative', maxHeight: 36+'px'}}>
-                                    <span className="target-date"></span>
-                                </div>
-                            </div>
-                        </li>
+                        {
+                            this.props.taskList.map(task => 
+                                <Task key={task.id}
+                                {...task}
+                                onDelete={() => this.props.deleteTask(task.id)}
+                                />
+                            )
+                        }
                     </ul>
                 </section>
             </div>
